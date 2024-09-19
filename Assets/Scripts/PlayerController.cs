@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        var agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+		agent.updateRotation = false;
+		agent.updateUpAxis = false;
         rb = GetComponent<Rigidbody2D>();  // Pega o Rigidbody2D do Player
         targetPosition = transform.position;  // Inicializa a posição alvo com a posição inicial do Player
     }
