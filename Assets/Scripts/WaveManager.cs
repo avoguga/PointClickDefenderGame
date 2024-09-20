@@ -9,6 +9,12 @@ public class WaveManager : MonoBehaviour
     public int player_hp;
     public int player_money;
     public int wave_;
+    public int n_monsters;
+    int n_monsters_spawned;
+    public GameObject monster;
+    public Transform spawn_location;
+    public float spawn_cooldown;
+    float spawn_cooldown_count;
     
     public TMP_Text player_hp_text;
     public TMP_Text player_money_text;
@@ -33,9 +39,9 @@ public class WaveManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        
+        SpawnEnemies(monster);
     }
     
     void UpdateHUD() {
@@ -50,6 +56,17 @@ public class WaveManager : MonoBehaviour
         
         if (player_hp <= 0) {
             game_over_screen.SetActive(true);
+        }
+    }
+    
+    void SpawnEnemies(GameObject enemy) {
+        if (n_monsters_spawned < n_monsters && spawn_cooldown_count < 0) {
+            Instantiate(enemy, spawn_location.position, Quaternion.identity);
+            n_monsters_spawned++;
+            spawn_cooldown_count = spawn_cooldown;
+        }
+        else {
+            spawn_cooldown_count -= Time.deltaTime;
         }
     }
 }
