@@ -96,6 +96,7 @@ public class WaveManager : MonoBehaviour
             wave_++;
             UpdateHUD();
             next_wave_button.SetActive(true);
+            return;
         }
         
         if (n_monsters_spawned < waves_list[wave_].n_monsters && spawn_cooldown_count < 0)
