@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 318f60abb3e90874ea47d793f6d9cf7e, type: 3}
+  m_Name: Wave_1
+  m_EditorClassIdentifier: 
+  n_monsters: 15
+  monster: {fileID: 4545385884164625478, guid: 2ad75ae2a19d29c4497fc0c71c9950be, type: 3}

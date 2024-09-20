@@ -2,37 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class WaveManager : MonoBehaviour
 {
-    
+
+    // Player Info
     public int player_hp;
     public int player_money;
+    
+    //Wave Info
+    public List<WaveScriptable> waves_list;
     public int wave_;
-    public int n_monsters;
     int n_monsters_spawned;
-    public GameObject monster;
+    public int n_monsters_left;
     public Transform spawn_location;
     public float spawn_cooldown;
     float spawn_cooldown_count;
-    
+    bool can_spawn_enemies = false;
+    public GameObject next_wave_button;
+
     public TMP_Text player_hp_text;
     public TMP_Text player_money_text;
     public TMP_Text wave_text;
-    
+
     public GameObject game_over_screen;
-    
-      public static WaveManager Instance { get; private set; }
-    
-    private void Awake() {
-        if (Instance != null && Instance != this) {
+    public GameObject victory_screen;
+
+    public static WaveManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
             Destroy(this);
-        } else {
+        }
+        else
+        {
             Instance = this;
         }
     }
 
-    
+
     void Start()
     {
         UpdateHUD();
@@ -41,31 +52,60 @@ public class WaveManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        SpawnEnemies(monster);
+        if (can_spawn_enemies == true)
+        {
+            SpawnEnemies(waves_list[wave_].monster);
+        }
     }
-    
-    void UpdateHUD() {
+
+    void UpdateHUD()
+    {
         player_hp_text.text = "HP: " + player_hp.ToString();
         player_money_text.text = "$: " + player_money.ToString();
         wave_text.text = "Wave: " + wave_.ToString();
     }
-    
-    public void RemoveHP(){
+
+    public void RemoveHP()
+    {
         player_hp--;
         UpdateHUD();
-        
-        if (player_hp <= 0) {
+
+        if (player_hp <= 0)
+        {
             game_over_screen.SetActive(true);
         }
     }
-    
-    void SpawnEnemies(GameObject enemy) {
-        if (n_monsters_spawned < n_monsters && spawn_cooldown_count < 0) {
+
+    public void StarWave()
+    {
+        next_wave_button.SetActive(false);
+        n_monsters_left = waves_list[wave_].n_monsters;
+        n_monsters_spawned = 0;
+        can_spawn_enemies = true;
+    }
+
+    void SpawnEnemies(GameObject enemy)
+    {
+        if(n_monsters_left <= 0)
+        {
+            if (wave_ >= waves_list.Count)
+            {
+                victory_screen.SetActive(true);
+            }
+            can_spawn_enemies = false;
+            wave_++;
+            UpdateHUD();
+            next_wave_button.SetActive(true);
+        }
+        
+        if (n_monsters_spawned < waves_list[wave_].n_monsters && spawn_cooldown_count < 0)
+        {
             Instantiate(enemy, spawn_location.position, Quaternion.identity);
             n_monsters_spawned++;
             spawn_cooldown_count = spawn_cooldown;
         }
-        else {
+        else
+        {
             spawn_cooldown_count -= Time.deltaTime;
         }
     }

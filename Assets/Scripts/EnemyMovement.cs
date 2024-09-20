@@ -27,6 +27,7 @@ public class EnemyMovement : MonoBehaviour
     public void TakeDamage(float dmg) {
         enemy_curr_hp -= dmg;
         if (enemy_curr_hp <= 0) {
+            WaveManager.Instance.n_monsters_left--;
             Destroy(this.gameObject);
         }
     }
