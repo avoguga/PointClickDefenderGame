@@ -6,16 +6,22 @@ public class Projectile : MonoBehaviour
 {
     public float projectile_damage;
     public Transform target_;
+    
+    // Canon
+    public bool is_canon = false;
+    public float project_radius = 0;
 
+    //Slow
+    public bool is_slow = false;
+    public float slow_rate = 0;
     // Update is called once per frame
     void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target_.position, 4 * Time.deltaTime);
-        
         if (target_ == null)
         {
             Destroy(this.gameObject);
         }
+        transform.position = Vector3.MoveTowards(transform.position, target_.position, 4 * Time.deltaTime);
     }
     
     private void OnTriggerEnter2D(Collider2D collision)
@@ -23,6 +29,27 @@ public class Projectile : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyMovement>().TakeDamage(projectile_damage);
+
+
+            // Canon
+            if (is_canon == true)
+            {
+                Collider2D[] explosion_objects = Physics2D.OverlapCircleAll(transform.position, project_radius);
+                foreach (Collider2D exp_obj in explosion_objects)
+                {
+                    if (exp_obj.gameObject.tag == "Enemy")
+                    {
+                        exp_obj.gameObject.GetComponent<EnemyMovement>().TakeDamage(projectile_damage);
+                    }
+                }
+            }
+            
+            // Slow
+            if (is_slow == true)
+            {
+                collision.gameObject.GetComponent<EnemyMovement>().enemy_speed *= 0.8f;
+            }
+            
             Destroy(this.gameObject);
         }
     }

@@ -10,7 +10,7 @@ public class Tower : MonoBehaviour
     public float attack_range;
     float attack_cooldown = 0;
     public GameObject projectile_;
-    GameObject target_enemy;
+    public GameObject target_enemy;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,7 @@ public class Tower : MonoBehaviour
     {
         if(attack_cooldown > attack_speed) 
         {
-            if(target_enemy == null)
+            if(target_enemy == null || Vector2.Distance(transform.position, target_enemy.transform.position) > attack_range)
             {
                 target_enemy = FindTarget();
             }
