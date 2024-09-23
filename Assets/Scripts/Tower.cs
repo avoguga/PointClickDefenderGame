@@ -4,30 +4,48 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-    
+
+    public int tower_price;
     public float attack_damage;
     public float attack_speed;
     public float attack_range;
     float attack_cooldown = 0;
     public GameObject projectile_;
     public GameObject target_enemy;
+
+    // Buidilng Mode
+    bool is_building = true;
+    int blocked_count;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        Shoot();
+        if (is_building == false)
+        {
+            Shoot();
+        }
     }
-    
+
+    private void Update()
+    {
+        if (is_building == true)
+        {
+            BuidilngMode();
+        }
+    }
+
     void Shoot()
     {
-        if(attack_cooldown > attack_speed) 
+        if (attack_cooldown > attack_speed)
         {
-            if(target_enemy == null || Vector2.Distance(transform.position, target_enemy.transform.position) > attack_range)
+            if (target_enemy == null || Vector2.Distance(transform.position, target_enemy.transform.position) > attack_range)
             {
                 target_enemy = FindTarget();
             }
@@ -37,26 +55,79 @@ public class Tower : MonoBehaviour
                 projectile_instance.GetComponent<Projectile>().projectile_damage = attack_damage;
                 projectile_instance.GetComponent<Projectile>().target_ = target_enemy.transform;
                 attack_cooldown = 0;
-        }
             }
+        }
         else
         {
             attack_cooldown += Time.deltaTime;
         }
     }
-    
+
     GameObject FindTarget()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        
+
         foreach (GameObject e_ in enemies)
         {
-            if (Vector2.Distance(transform.position, e_.transform.position) <attack_range)
+            if (Vector2.Distance(transform.position, e_.transform.position) < attack_range)
             {
                 return e_;
             }
         }
-        
+
         return null;
+    }
+
+    void BuidilngMode()
+    {
+        Vector3 mouse_position = Input.mousePosition;
+        mouse_position = Camera.main.ScreenToWorldPoint(mouse_position);
+        mouse_position.z = transform.position.z;
+
+        transform.position = mouse_position;
+
+        if (blocked_count == 0 && WaveManager.Instance.player_money >= tower_price)
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+
+            // Can Build
+            if (Input.GetMouseButtonUp(0))
+            {
+                is_building = false;
+                this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+                WaveManager.Instance.player_money -= tower_price;
+                    Debug.Log("Player Money after tower purchase: " + WaveManager.Instance.player_money); // Log do valor
+                WaveManager.Instance.UpdateHUD();
+                BuildingManager.Instance.building_ui.SetActive(true);
+            }
+        }
+        else
+        {
+            this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            BuildingManager.Instance.building_ui.SetActive(true);
+            Destroy(this.gameObject);
+        }
+
+
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Blocked")
+        {
+            blocked_count++;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Blocked")
+        {
+            blocked_count--;
+        }
     }
 }

@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_max_hp: 50
   enemy_curr_hp: 0
+  enemy_gold: 5
   enemy_speed: 4
 --- !u!58 &4073609881220038020
 CircleCollider2D:

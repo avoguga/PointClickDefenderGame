@@ -58,8 +58,9 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    void UpdateHUD()
+    public void UpdateHUD()
     {
+        Debug.Log("Updating HUD - Player Money: " + player_money);
         player_hp_text.text = "HP: " + player_hp.ToString();
         player_money_text.text = "$: " + player_money.ToString();
         wave_text.text = "Wave: " + wave_.ToString();

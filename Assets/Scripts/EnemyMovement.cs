@@ -6,6 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
     public int enemy_max_hp;
     public float enemy_curr_hp;
+    public int enemy_gold;
     public float enemy_speed;
     int next_point = 0;
     // Start is called before the first frame update
@@ -28,6 +29,8 @@ public class EnemyMovement : MonoBehaviour
         enemy_curr_hp -= dmg;
         if (enemy_curr_hp <= 0) {
             WaveManager.Instance.n_monsters_left--;
+            WaveManager.Instance.player_money += enemy_gold;
+            WaveManager.Instance.UpdateHUD();
             Destroy(this.gameObject);
         }
     }
