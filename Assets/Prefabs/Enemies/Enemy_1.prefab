@@ -75,7 +75,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300000, guid: cc3ac9ea739810e46a8fddd50dd0647c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy_max_hp: 50
-  enemy_curr_hp: 0
+  enemy_curr_hp: 50
   enemy_gold: 5
-  enemy_speed: 4
+  enemy_speed: 3
 --- !u!58 &4073609881220038020
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135,9 +135,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.0054793386, y: 0}
   serializedVersion: 2
-  m_Radius: 0.64
+  m_Radius: 0.30027348
 --- !u!50 &2450131080916763168
 Rigidbody2D:
   serializedVersion: 4

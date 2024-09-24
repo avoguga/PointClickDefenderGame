@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Wave_1
   m_EditorClassIdentifier: 
   n_monsters: 15
-  monster: {fileID: 4545385884164625478, guid: 2ad75ae2a19d29c4497fc0c71c9950be, type: 3}
+  monster: {fileID: 4545385884164625478, guid: 44af4d585979eaf44a6dde510db5336d, type: 3}

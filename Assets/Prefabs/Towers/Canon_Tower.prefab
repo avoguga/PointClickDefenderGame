@@ -99,11 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3145d6e9bbff3ab4d9c0abc00e4cd1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower_price: 50
-  attack_damage: 10
+  tower_price: 100
+  attack_damage: 25
   attack_speed: 3
   attack_range: 5
-  projectile_: {fileID: 8098335119483330679, guid: d92939db54eb7494a88f848dcd577b15, type: 3}
+  projectile_: {fileID: 4405142752043717610, guid: 0580acfbaa0eccf4f902559a775e0298, type: 3}
   target_enemy: {fileID: 0}
 --- !u!61 &-4142551224607085376
 BoxCollider2D:
