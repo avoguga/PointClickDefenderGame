@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tower_price: 50
-  attack_damage: 10
+  attack_damage: 25
   attack_speed: 1
   attack_range: 5
   projectile_: {fileID: 4405142752043717610, guid: 4551a2c0c0436c545bb7089e714f48bb, type: 3}

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8858432434054324814}
   - component: {fileID: 4073609881220038020}
   - component: {fileID: 2450131080916763168}
+  - component: {fileID: 3674075670948960152}
   m_Layer: 0
   m_Name: Enemy_1
   m_TagString: Enemy
@@ -99,10 +100,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f298902d48a32eb43bf734b3030d1939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy_max_hp: 50
+  enemy_max_hp: 500
   enemy_curr_hp: 50
   enemy_gold: 5
   enemy_speed: 3
+  enemy_sprite_renderer: {fileID: 5368864144465142604}
 --- !u!58 &4073609881220038020
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -146,14 +148,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4545385884164625478}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -165,3 +167,25 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!195 &3674075670948960152
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4545385884164625478}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.6399999
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 1.28
+  m_BaseOffset: 0.64
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
