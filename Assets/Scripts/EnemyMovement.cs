@@ -72,13 +72,27 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    IEnumerator BlinkRed()
+ IEnumerator BlinkRed()
+{
+    if (enemy_sprite_renderer != null)
     {
-        if (enemy_sprite_renderer != null)
-        {
-            enemy_sprite_renderer.color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            enemy_sprite_renderer.color = original_color;
-        }
+        // Desativar temporariamente o controle do Animator sobre o SpriteRenderer
+        enemy_sprite_renderer.material.SetOverrideTag("RenderType", "Transparent");
+        
+        // Alterar a cor para vermelho
+        enemy_sprite_renderer.color = Color.red;
+        
+        // Aguardar o tempo do efeito de hit
+        yield return new WaitForSeconds(0.1f);
+
+        // Restaurar a cor original
+        enemy_sprite_renderer.color = original_color;
+
+        // Reativar o controle do Animator
+        enemy_sprite_renderer.material.SetOverrideTag("RenderType", "");
     }
+}
+
+
+
 }
