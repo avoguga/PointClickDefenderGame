@@ -100,7 +100,7 @@ public class WaveManager : MonoBehaviour
         {
             if (wave_ >= waves_list.Count)
             {
-                victory_screen.SetActive(true);
+                SceneManager.LoadScene("Victory"); // Carrega a cena Victory
             }
             can_spawn_enemies = false;
             wave_++;
