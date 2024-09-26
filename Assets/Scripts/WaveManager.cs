@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class WaveManager : MonoBehaviour
 {
@@ -66,16 +68,23 @@ public class WaveManager : MonoBehaviour
         wave_text.text = "Wave: " + wave_.ToString();
     }
 
-    public void RemoveHP()
+        public void RemoveHP()
     {
-        player_hp--;
-        UpdateHUD();
+        player_hp--; // Reduz o HP do jogador
 
         if (player_hp <= 0)
         {
-            game_over_screen.SetActive(true);
+            GameOver(); // Se o HP for zero, chama o Game Over
         }
+
+        UpdateHUD(); // Atualiza a interface com o novo valor de HP
     }
+
+    void GameOver()
+    {
+        SceneManager.LoadScene("GameOver"); // Carrega a cena de Game Over
+    }
+
 
     public void StarWave()
     {

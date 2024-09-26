@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PointNClick.unity
     guid: 5f664fb4ef0a74a4496d6d47dc9ba638
+  - enabled: 1
+    path: Assets/Scenes/GameOver.unity
+    guid: 09c6476622665454a9ba11a0101da61e
+  - enabled: 1
+    path: Assets/Scenes/Victory.unity
+    guid: 844099770ae9c3b45adb8a77ea3c34bb
   m_configObjects: {}

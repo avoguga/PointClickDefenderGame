@@ -16,12 +16,13 @@ public class EnemyObjective : MonoBehaviour
         
     }
     
-    private void OnTriggerEnter2D(Collider2D collision)
+   private void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.gameObject.tag == "Enemy")
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            WaveManager.Instance.RemoveHP();
-            collision.gameObject.GetComponent<EnemyMovement>().TakeDamage(collision.gameObject.GetComponent<EnemyMovement>().enemy_max_hp + 1);
-        }
+        WaveManager.Instance.RemoveHP(); // Chamando o método para reduzir o HP do jogador
+        collision.gameObject.GetComponent<EnemyMovement>().TakeDamage(collision.gameObject.GetComponent<EnemyMovement>().enemy_max_hp + 1);
     }
+}
+
 }
