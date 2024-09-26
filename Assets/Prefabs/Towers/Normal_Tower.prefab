@@ -31,7 +31,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -3.79, y: -0.62, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,8 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3145d6e9bbff3ab4d9c0abc00e4cd1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower_price: 50
-  attack_damage: 25
+  tower_price: 5
+  attack_damage: 1
   attack_speed: 1
   attack_range: 5
   projectile_: {fileID: 4405142752043717610, guid: 4551a2c0c0436c545bb7089e714f48bb, type: 3}
