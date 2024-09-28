@@ -11,25 +11,33 @@ public class Projectile : MonoBehaviour
     public bool is_canon = false;
     public float project_radius = 0;
 
-    //Slow
+    // Slow
     public bool is_slow = false;
     public float slow_rate = 0;
+
+    // Rotação
+    public float rotation_speed = 360f; // Velocidade de rotação em graus por segundo
+
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Girar o projétil
+        transform.Rotate(0, 0, rotation_speed * Time.deltaTime); // Gira no eixo Z (2D)
+
         if (target_ == null)
         {
             Destroy(this.gameObject);
         }
+
+        // Mover o projétil em direção ao alvo
         transform.position = Vector3.MoveTowards(transform.position, target_.position, 4 * Time.deltaTime);
     }
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyMovement>().TakeDamage(projectile_damage);
-
 
             // Canon
             if (is_canon == true)
@@ -50,6 +58,7 @@ public class Projectile : MonoBehaviour
                 collision.gameObject.GetComponent<EnemyMovement>().enemy_speed *= 0.8f;
             }
             
+            // Destruir o projétil após o impacto
             Destroy(this.gameObject);
         }
     }
