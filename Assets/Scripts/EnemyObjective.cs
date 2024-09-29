@@ -16,13 +16,24 @@ public class EnemyObjective : MonoBehaviour
         
     }
     
-   private void OnTriggerEnter2D(Collider2D collision)
+private void OnTriggerEnter2D(Collider2D collision)
 {
     if (collision.gameObject.tag == "Enemy")
     {
-        WaveManager.Instance.RemoveHP(); // Chamando o método para reduzir o HP do jogador
-        collision.gameObject.GetComponent<EnemyMovement>().TakeDamage(collision.gameObject.GetComponent<EnemyMovement>().enemy_max_hp + 1);
+        // Reduz o HP do jogador quando o inimigo atinge o objetivo
+        WaveManager.Instance.RemoveHP();
+
+        // Atualiza o contador de inimigos restantes
+        WaveManager.Instance.n_monsters_left--;
+
+        // Destruir o inimigo diretamente, sem dar dinheiro
+        Destroy(collision.gameObject);
+
+        // Verificar se não há mais inimigos no mapa
+        WaveManager.Instance.CheckIfAllEnemiesAreDead();
     }
 }
+
+
 
 }

@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/StartScreen.unity
     guid: aa66be19c92e9c54f97dd1cd5ab9b7e1
   - enabled: 1
+    path: Assets/Scenes/Level.unity
+    guid: ef14947ee57d92c4d9952be3826dab0d
+  - enabled: 1
     path: Assets/Scenes/PointNClick.unity
     guid: 5f664fb4ef0a74a4496d6d47dc9ba638
   - enabled: 1

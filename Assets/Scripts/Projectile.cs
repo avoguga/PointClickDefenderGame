@@ -6,7 +6,7 @@ public class Projectile : MonoBehaviour
 {
     public float projectile_damage;
     public Transform target_;
-    
+
     // Canon
     public bool is_canon = false;
     public float project_radius = 0;
@@ -21,13 +21,16 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Girar o projétil
-        transform.Rotate(0, 0, rotation_speed * Time.deltaTime); // Gira no eixo Z (2D)
-
+        // Verifica se o alvo ainda existe
         if (target_ == null)
         {
+            // O alvo foi destruído, então destruímos o projétil
             Destroy(this.gameObject);
+            return;
         }
+
+        // Girar o projétil
+        transform.Rotate(0, 0, rotation_speed * Time.deltaTime); // Gira no eixo Z (2D)
 
         // Mover o projétil em direção ao alvo
         transform.position = Vector3.MoveTowards(transform.position, target_.position, 4 * Time.deltaTime);
@@ -51,13 +54,13 @@ public class Projectile : MonoBehaviour
                     }
                 }
             }
-            
+
             // Slow
             if (is_slow == true)
             {
                 collision.gameObject.GetComponent<EnemyMovement>().enemy_speed *= 0.8f;
             }
-            
+
             // Destruir o projétil após o impacto
             Destroy(this.gameObject);
         }

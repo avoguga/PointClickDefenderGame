@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 
-
 public class EnemyMovement : MonoBehaviour
 {
     public int enemy_max_hp;
@@ -18,6 +17,8 @@ public class EnemyMovement : MonoBehaviour
     // Novo campo para o áudio de hit
     public AudioClip hitSound;
     private AudioSource audioSource;
+    
+    private bool killedByProjectile = false;
 
     void Start()
     {
@@ -62,23 +63,52 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float dmg)
+   public void TakeDamage(float dmg)
+{
+    enemy_curr_hp -= dmg;
+
+    killedByProjectile = true;
+
+    PlayHitSound();
+
+    StartCoroutine(BlinkRed());
+
+    if (enemy_curr_hp <= 0)
     {
-        enemy_curr_hp -= dmg;
+        WaveManager.Instance.n_monsters_left--; // Decrementa o contador
 
-        // Tocar o som de hit
-        PlayHitSound();
-
-        StartCoroutine(BlinkRed());
-
-        if (enemy_curr_hp <= 0)
+        // Apenas dá dinheiro se o inimigo foi destruído por um projétil
+        if (killedByProjectile)
         {
-            WaveManager.Instance.n_monsters_left--;
             WaveManager.Instance.player_money += enemy_gold;
             WaveManager.Instance.UpdateHUD();
-            Destroy(this.gameObject);
         }
+
+        // Iniciar a corrotina para destruir o inimigo após o som ser tocado
+        StartCoroutine(DestroyEnemyAfterSound());
+        
+        // Verificar se não há mais inimigos no mapa
+        WaveManager.Instance.CheckIfAllEnemiesAreDead();
     }
+}
+
+
+IEnumerator DestroyEnemyAfterSound()
+{
+    // Espera a duração do som de hit antes de destruir o inimigo
+    yield return new WaitForSeconds(hitSound.length);
+
+    // Apenas dá dinheiro se o inimigo foi destruído por um projétil
+    if (killedByProjectile)
+    {
+        WaveManager.Instance.player_money += enemy_gold;
+        WaveManager.Instance.UpdateHUD();
+    }
+
+    // Destruir o inimigo
+    Destroy(this.gameObject);
+}
+
 
     IEnumerator BlinkRed()
     {
@@ -106,6 +136,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if (hitSound != null && audioSource != null)
         {
+            Debug.Log("Hit Sound played!");
             audioSource.PlayOneShot(hitSound);
         }
     }

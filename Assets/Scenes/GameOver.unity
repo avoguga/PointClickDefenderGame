@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac957478b7da87d4cb0a66384e096b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  customCursor: {fileID: 2800000, guid: db7b35d424e64ce4dbed3df5e325aa0a, type: 3}
+  customCursor: {fileID: 2800000, guid: 0e1a58da95b31d64da6e1e9a0101d815, type: 3}
   cursorHotspot: {x: 0, y: 0}
 --- !u!4 &547031629
 Transform:
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: VICTORY!
+  m_text: GAME OVER
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 701873fcab53245468edaf0464883b70, type: 2}
   m_sharedMaterial: {fileID: 1085099771508111233, guid: 701873fcab53245468edaf0464883b70, type: 2}
