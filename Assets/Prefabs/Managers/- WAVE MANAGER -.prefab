@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5120218145536198117
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1082058641261572882}
+  - component: {fileID: 6372419331930102171}
+  m_Layer: 0
+  m_Name: '- WAVE MANAGER -'
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1082058641261572882
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5120218145536198117}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.683674, y: -1.0437031, z: 593.4165}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6372419331930102171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5120218145536198117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5fe74b430965cd4ca01200f156a65fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player_hp: 10
+  player_money: 15
+  waves_list:
+  - {fileID: 11400000, guid: b885575c77c92114db0b4f43bc8fabbb, type: 2}
+  - {fileID: 11400000, guid: 4cb298c0ac0706e47b8bbeb6c96056e1, type: 2}
+  - {fileID: 11400000, guid: f8a1ecdc54232ab4b8f7253c79031f94, type: 2}
+  - {fileID: 11400000, guid: 3af6cd414c67a644d9020d0d22680f8c, type: 2}
+  - {fileID: 11400000, guid: b3ae696f684bd32468ae0a0d4af6973b, type: 2}
+  wave_: 0
+  n_monsters_left: 0
+  spawn_location: {fileID: 0}
+  spawn_cooldown: 1
+  next_wave_button: {fileID: 0}
+  player_hp_text: {fileID: 0}
+  player_money_text: {fileID: 0}
+  wave_text: {fileID: 0}
+  game_over_screen: {fileID: 0}
+  victory_screen: {fileID: 0}
