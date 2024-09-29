@@ -39,7 +39,7 @@ public class PlayAgainButton : MonoBehaviour
             // Quando o fade estiver completo, carregue a próxima cena
             if (alphaValue >= 1)
             {
-                SceneManager.LoadScene("PointNClick");
+                SceneManager.LoadScene("Level");
             }
         }
     }

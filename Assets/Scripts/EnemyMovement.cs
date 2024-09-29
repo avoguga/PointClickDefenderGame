@@ -1,7 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
+
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -15,7 +15,10 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent agent;
     private Color original_color;
 
-    // Start is called before the first frame update
+    // Novo campo para o áudio de hit
+    public AudioClip hitSound;
+    private AudioSource audioSource;
+
     void Start()
     {
         enemy_curr_hp = enemy_max_hp;
@@ -36,9 +39,11 @@ public class EnemyMovement : MonoBehaviour
         {
             original_color = enemy_sprite_renderer.color;
         }
+
+        // Inicializa o AudioSource
+        audioSource = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
@@ -61,6 +66,9 @@ public class EnemyMovement : MonoBehaviour
     {
         enemy_curr_hp -= dmg;
 
+        // Tocar o som de hit
+        PlayHitSound();
+
         StartCoroutine(BlinkRed());
 
         if (enemy_curr_hp <= 0)
@@ -72,27 +80,33 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
- IEnumerator BlinkRed()
-{
-    if (enemy_sprite_renderer != null)
+    IEnumerator BlinkRed()
     {
-        // Desativar temporariamente o controle do Animator sobre o SpriteRenderer
-        enemy_sprite_renderer.material.SetOverrideTag("RenderType", "Transparent");
-        
-        // Alterar a cor para vermelho
-        enemy_sprite_renderer.color = Color.red;
-        
-        // Aguardar o tempo do efeito de hit
-        yield return new WaitForSeconds(0.1f);
+        if (enemy_sprite_renderer != null)
+        {
+            // Desativar temporariamente o controle do Animator sobre o SpriteRenderer
+            enemy_sprite_renderer.material.SetOverrideTag("RenderType", "Transparent");
 
-        // Restaurar a cor original
-        enemy_sprite_renderer.color = original_color;
+            // Alterar a cor para vermelho
+            enemy_sprite_renderer.color = Color.red;
 
-        // Reativar o controle do Animator
-        enemy_sprite_renderer.material.SetOverrideTag("RenderType", "");
+            // Aguardar o tempo do efeito de hit
+            yield return new WaitForSeconds(0.1f);
+
+            // Restaurar a cor original
+            enemy_sprite_renderer.color = original_color;
+
+            // Reativar o controle do Animator
+            enemy_sprite_renderer.material.SetOverrideTag("RenderType", "");
+        }
     }
-}
 
-
-
+    // Função para tocar o som de hit
+    void PlayHitSound()
+    {
+        if (hitSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(hitSound);
+        }
+    }
 }
