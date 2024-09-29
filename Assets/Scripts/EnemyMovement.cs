@@ -63,52 +63,29 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-   public void TakeDamage(float dmg)
-{
-    enemy_curr_hp -= dmg;
-
-    killedByProjectile = true;
-
-    PlayHitSound();
-
-    StartCoroutine(BlinkRed());
-
-    if (enemy_curr_hp <= 0)
+    public void TakeDamage(float dmg)
     {
-        WaveManager.Instance.n_monsters_left--; // Decrementa o contador
+        enemy_curr_hp -= dmg;
 
-        // Apenas dá dinheiro se o inimigo foi destruído por um projétil
-        if (killedByProjectile)
+        killedByProjectile = true;
+
+        PlayHitSound();
+
+        StartCoroutine(BlinkRed());
+
+        if (enemy_curr_hp <= 0)
         {
+            // Dar dinheiro ao jogador quando o inimigo é destruído
             WaveManager.Instance.player_money += enemy_gold;
             WaveManager.Instance.UpdateHUD();
+
+            // Destruir o inimigo imediatamente
+            Destroy(gameObject);
+
+            // Verificar se não há mais inimigos no mapa
+            WaveManager.Instance.CheckIfAllEnemiesAreDead();
         }
-
-        // Iniciar a corrotina para destruir o inimigo após o som ser tocado
-        StartCoroutine(DestroyEnemyAfterSound());
-        
-        // Verificar se não há mais inimigos no mapa
-        WaveManager.Instance.CheckIfAllEnemiesAreDead();
     }
-}
-
-
-IEnumerator DestroyEnemyAfterSound()
-{
-    // Espera a duração do som de hit antes de destruir o inimigo
-    yield return new WaitForSeconds(hitSound.length);
-
-    // Apenas dá dinheiro se o inimigo foi destruído por um projétil
-    if (killedByProjectile)
-    {
-        WaveManager.Instance.player_money += enemy_gold;
-        WaveManager.Instance.UpdateHUD();
-    }
-
-    // Destruir o inimigo
-    Destroy(this.gameObject);
-}
-
 
     IEnumerator BlinkRed()
     {

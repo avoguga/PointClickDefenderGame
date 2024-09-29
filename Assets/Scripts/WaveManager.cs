@@ -23,7 +23,7 @@ public class WaveManager : MonoBehaviour
     bool can_spawn_enemies = false;
     public GameObject next_wave_button;
     
-    public int starting_wave = 0;  // A wave na qual você quer começar (0 para primeira, 1 para segunda, etc.)
+    public int starting_wave = 0;
 
 
     public TMP_Text player_hp_text;
@@ -53,13 +53,12 @@ public class WaveManager : MonoBehaviour
         UpdateHUD();
     }
 
-    // Método para atualizar os elementos da HUD
     public void UpdateHUD()
     {
         Debug.Log("Updating HUD - Player Money: " + player_money);
         player_hp_text.text = "HP: " + player_hp.ToString();
         player_money_text.text = "$: " + player_money.ToString();
-        wave_text.text = "Wave: " + (wave_ + 1).ToString();  // +1 para começar a contar em 1 no HUD
+        wave_text.text = "Wave: " + (wave_ + 1).ToString();
     }
 
     void FixedUpdate()
@@ -72,11 +71,11 @@ public class WaveManager : MonoBehaviour
 
     public void StartWave()
     {
-        // Incrementar a wave e atualizar o HUD
+
         wave_++;
         if (wave_ >= waves_list.Count)
         {
-            SceneManager.LoadScene("Victory"); // Carrega a cena Victory
+            SceneManager.LoadScene("Victory"); 
             return;
         }
 

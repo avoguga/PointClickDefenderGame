@@ -36,33 +36,35 @@ public class Projectile : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, target_.position, 4 * Time.deltaTime);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+  private void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.gameObject.tag == "Enemy")
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
-            collision.gameObject.GetComponent<EnemyMovement>().TakeDamage(projectile_damage);
+        // Aplicar dano ao inimigo ao colidir
+        collision.gameObject.GetComponent<EnemyMovement>().TakeDamage(projectile_damage);
 
-            // Canon
-            if (is_canon == true)
+        // Canon (dano em área)
+        if (is_canon == true)
+        {
+            Collider2D[] explosion_objects = Physics2D.OverlapCircleAll(transform.position, project_radius);
+            foreach (Collider2D exp_obj in explosion_objects)
             {
-                Collider2D[] explosion_objects = Physics2D.OverlapCircleAll(transform.position, project_radius);
-                foreach (Collider2D exp_obj in explosion_objects)
+                if (exp_obj.gameObject.tag == "Enemy")
                 {
-                    if (exp_obj.gameObject.tag == "Enemy")
-                    {
-                        exp_obj.gameObject.GetComponent<EnemyMovement>().TakeDamage(projectile_damage);
-                    }
+                    exp_obj.gameObject.GetComponent<EnemyMovement>().TakeDamage(projectile_damage);
                 }
             }
-
-            // Slow
-            if (is_slow == true)
-            {
-                collision.gameObject.GetComponent<EnemyMovement>().enemy_speed *= 0.8f;
-            }
-
-            // Destruir o projétil após o impacto
-            Destroy(this.gameObject);
         }
+
+        // Efeito de slow
+        if (is_slow == true)
+        {
+            collision.gameObject.GetComponent<EnemyMovement>().enemy_speed *= 0.8f;
+        }
+
+        // Destruir o projétil após o impacto
+        Destroy(this.gameObject);
     }
+}
+
 }

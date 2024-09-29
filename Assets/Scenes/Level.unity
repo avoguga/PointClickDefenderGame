@@ -6826,6 +6826,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 330642322}
     - target: {fileID: 6372419331930102171, guid: c770b8ed7af6fa848847e50d073e7c2e, type: 3}
+      propertyPath: starting_wave
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372419331930102171, guid: c770b8ed7af6fa848847e50d073e7c2e, type: 3}
       propertyPath: player_hp_text
       value: 
       objectReference: {fileID: 1854212558}

@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemy_max_hp: 2
   enemy_curr_hp: 2
-  enemy_gold: 15
+  enemy_gold: 1
   enemy_speed: 2
   enemy_sprite_renderer: {fileID: 0}
   hitSound: {fileID: 8300000, guid: d809fc11e5c8e924cb681a7c335e9b97, type: 3}
