@@ -12,13 +12,13 @@ public class EnemyMovement : MonoBehaviour
     int next_point = 0;
 
     private NavMeshAgent agent;
-    private Color original_color;
+    private AudioSource audioSource;
+
+    // Referência ao Animator
+    private Animator enemyAnimator;
 
     // Novo campo para o áudio de hit
     public AudioClip hitSound;
-    private AudioSource audioSource;
-    
-    private bool killedByProjectile = false;
 
     void Start()
     {
@@ -36,10 +36,8 @@ public class EnemyMovement : MonoBehaviour
 
         SetNextDestination();
 
-        if (enemy_sprite_renderer != null)
-        {
-            original_color = enemy_sprite_renderer.color;
-        }
+        // Obter o componente Animator
+        enemyAnimator = GetComponent<Animator>();
 
         // Inicializa o AudioSource
         audioSource = GetComponent<AudioSource>();
@@ -67,11 +65,13 @@ public class EnemyMovement : MonoBehaviour
     {
         enemy_curr_hp -= dmg;
 
-        killedByProjectile = true;
-
         PlayHitSound();
 
-        StartCoroutine(BlinkRed());
+        // Ativar a animação de "Hit"
+        if (enemyAnimator != null)
+        {
+            enemyAnimator.SetTrigger("HitFinal");  // Dispara a animação de "Hit"
+        }
 
         if (enemy_curr_hp <= 0)
         {
@@ -87,33 +87,11 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
-    IEnumerator BlinkRed()
-    {
-        if (enemy_sprite_renderer != null)
-        {
-            // Desativar temporariamente o controle do Animator sobre o SpriteRenderer
-            enemy_sprite_renderer.material.SetOverrideTag("RenderType", "Transparent");
-
-            // Alterar a cor para vermelho
-            enemy_sprite_renderer.color = Color.red;
-
-            // Aguardar o tempo do efeito de hit
-            yield return new WaitForSeconds(0.1f);
-
-            // Restaurar a cor original
-            enemy_sprite_renderer.color = original_color;
-
-            // Reativar o controle do Animator
-            enemy_sprite_renderer.material.SetOverrideTag("RenderType", "");
-        }
-    }
-
     // Função para tocar o som de hit
     void PlayHitSound()
     {
         if (hitSound != null && audioSource != null)
         {
-            Debug.Log("Hit Sound played!");
             audioSource.PlayOneShot(hitSound);
         }
     }
