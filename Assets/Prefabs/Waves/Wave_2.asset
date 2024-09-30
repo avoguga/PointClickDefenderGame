@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318f60abb3e90874ea47d793f6d9cf7e, type: 3}
   m_Name: Wave_2
   m_EditorClassIdentifier: 
-  n_monsters: 15
+  n_monsters: 20
   monster: {fileID: 4545385884164625478, guid: 2ad75ae2a19d29c4497fc0c71c9950be, type: 3}

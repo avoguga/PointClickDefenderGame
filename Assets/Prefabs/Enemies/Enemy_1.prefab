@@ -54,7 +54,7 @@ MonoBehaviour:
   enemy_max_hp: 2
   enemy_curr_hp: 2
   enemy_gold: 1
-  enemy_speed: 2
+  enemy_speed: 3
   enemy_sprite_renderer: {fileID: 0}
   hitSound: {fileID: 8300000, guid: bf1ce2921ad25264d8638074fdd8e734, type: 3}
 --- !u!58 &4073609881220038020

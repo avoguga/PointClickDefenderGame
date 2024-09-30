@@ -62,12 +62,16 @@ public class WaveManager : MonoBehaviour
     }
 
     void FixedUpdate()
+{
+        Debug.Log("FixedUpdate is running");
+
+    if (can_spawn_enemies)
     {
-        if (can_spawn_enemies)
-        {
-            SpawnEnemies(waves_list[wave_].monster);
-        }
+        SpawnEnemies(waves_list[wave_].monster);
     }
+    
+    CheckIfAllEnemiesAreDead(); // Verificação contínua
+}
 
     public void StartWave()
     {
@@ -75,6 +79,7 @@ public class WaveManager : MonoBehaviour
         wave_++;
         if (wave_ >= waves_list.Count)
         {
+            Debug.Log("No more waves. Victory!");
             SceneManager.LoadScene("Victory"); 
             return;
         }
@@ -132,14 +137,22 @@ public class WaveManager : MonoBehaviour
     }
 
     // Verificação se todos os inimigos foram destruídos
-    public void CheckIfAllEnemiesAreDead()
+  public void CheckIfAllEnemiesAreDead()
+{
+    // Verifica quantos inimigos ainda estão no mapa
+    GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    
+      // Log para saber quantos inimigos ainda estão vivos
+    Debug.Log("Number of enemies on the map: " + enemies.Length);
+    Debug.Log("Number of monsters left to spawn: " + n_monsters_left);
+
+    // Se não houver mais inimigos, o botão de próxima wave deve aparecer
+    if (enemies.Length == 0 && n_monsters_left <= 0)
     {
-        if (n_monsters_left <= 0)
-        {
-            // Mostrar o botão para a próxima wave
-            next_wave_button.SetActive(true);
-            can_spawn_enemies = false; // Pausar o spawn
-            Debug.Log("All enemies are dead. Showing Start Wave button.");
-        }
+        Debug.Log("No more enemies. Showing Start Wave button.");
+        next_wave_button.SetActive(true);
+        can_spawn_enemies = false; // Pausar o spawn de inimigos
+        Debug.Log("All enemies are dead. Showing Start Wave button.");
     }
+}
 }

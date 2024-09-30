@@ -116,6 +116,14 @@ public class Tower : MonoBehaviour
         {
             this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
+        
+         // Cancelar o modo de construção ao clicar com o botão direito do mouse
+    if (Input.GetMouseButtonDown(1)) // Botão direito do mouse
+    {
+        Debug.Log("Building mode cancelled");
+        BuildingManager.Instance.building_ui.SetActive(true); // Mostrar a UI de construção novamente
+        Destroy(this.gameObject); // Destruir a torre em construção
+    }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {

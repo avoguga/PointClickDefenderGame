@@ -63,6 +63,9 @@ public class EnemyMovement : MonoBehaviour
 
     public void TakeDamage(float dmg)
     {
+        
+        Debug.Log("Enemy took damage: " + dmg);
+
         enemy_curr_hp -= dmg;
 
         // Tocar o som de hit
@@ -77,9 +80,15 @@ public class EnemyMovement : MonoBehaviour
         // Se o inimigo morrer com este hit, ainda toca o som e depois destrói
         if (enemy_curr_hp <= 0)
         {
+            
+            Debug.Log("Enemy died. Giving gold: " + enemy_gold);
             // Dar dinheiro ao jogador quando o inimigo é destruído
             WaveManager.Instance.player_money += enemy_gold;
             WaveManager.Instance.UpdateHUD();
+            
+            // Atualizar o contador de inimigos restantes
+        WaveManager.Instance.n_monsters_left--;
+        Debug.Log("Enemy killed. Enemies left: " + WaveManager.Instance.n_monsters_left);
 
             // Reproduzir o som em um GameObject temporário
             PlayHitSoundAtDeath();

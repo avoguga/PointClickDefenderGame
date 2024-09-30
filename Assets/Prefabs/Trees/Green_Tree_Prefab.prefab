@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3145d6e9bbff3ab4d9c0abc00e4cd1c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower_price: 5
+  tower_price: 10
   attack_damage: 1
   attack_speed: 1
   attack_range: 5

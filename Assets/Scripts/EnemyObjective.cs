@@ -20,11 +20,16 @@ private void OnTriggerEnter2D(Collider2D collision)
 {
     if (collision.gameObject.tag == "Enemy")
     {
+        
+        Debug.Log("Enemy reached the objective. Reducing player's HP.");
+
         // Reduz o HP do jogador quando o inimigo atinge o objetivo
         WaveManager.Instance.RemoveHP();
 
         // Atualiza o contador de inimigos restantes
         WaveManager.Instance.n_monsters_left--;
+        
+        Debug.Log("Enemies left to spawn: " + WaveManager.Instance.n_monsters_left);
 
         // Destruir o inimigo diretamente, sem dar dinheiro
         Destroy(collision.gameObject);
