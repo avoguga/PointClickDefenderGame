@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tower : MonoBehaviour
 {
-
     public int tower_price;
     public float attack_damage;
     public float attack_speed;
@@ -13,21 +12,27 @@ public class Tower : MonoBehaviour
     public GameObject projectile_;
     public GameObject target_enemy;
 
-    // Buidilng Mode
+    // Building Mode
     bool is_building = true;
     int blocked_count;
+
+    // Referência ao AudioSource para tocar som de construção
+    private AudioSource buildSound;
 
     // Start is called before the first frame update
     void Start()
     {
-        this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+        // Obter o AudioSource da torre
+        buildSound = GetComponent<AudioSource>();
 
+        // Inicializar a cor da torre em verde
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.green;
     }
 
-    // Update is called once per frame
+    // Update is called uma vez por frame
     void FixedUpdate()
     {
-        if (is_building == false)
+        if (!is_building)
         {
             Shoot();
         }
@@ -35,7 +40,7 @@ public class Tower : MonoBehaviour
 
     private void Update()
     {
-        if (is_building == true)
+        if (is_building)
         {
             BuidilngMode();
         }
@@ -96,23 +101,27 @@ public class Tower : MonoBehaviour
                 is_building = false;
                 this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
                 WaveManager.Instance.player_money -= tower_price;
-                    Debug.Log("Player Money after tower purchase: " + WaveManager.Instance.player_money); // Log do valor
+                Debug.Log("Player Money after tower purchase: " + WaveManager.Instance.player_money); // Log do valor
                 WaveManager.Instance.UpdateHUD();
                 BuildingManager.Instance.building_ui.SetActive(true);
+
+                // Tocar o som da construção
+                if (buildSound != null)
+                {
+                    buildSound.Play();
+                }
             }
         }
         else
         {
             this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
         }
-        
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             BuildingManager.Instance.building_ui.SetActive(true);
             Destroy(this.gameObject);
         }
-
-
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

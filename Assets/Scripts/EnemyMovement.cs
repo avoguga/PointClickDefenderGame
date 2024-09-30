@@ -65,6 +65,7 @@ public class EnemyMovement : MonoBehaviour
     {
         enemy_curr_hp -= dmg;
 
+        // Tocar o som de hit
         PlayHitSound();
 
         // Ativar a animação de "Hit"
@@ -73,11 +74,15 @@ public class EnemyMovement : MonoBehaviour
             enemyAnimator.SetTrigger("HitFinal");  // Dispara a animação de "Hit"
         }
 
+        // Se o inimigo morrer com este hit, ainda toca o som e depois destrói
         if (enemy_curr_hp <= 0)
         {
             // Dar dinheiro ao jogador quando o inimigo é destruído
             WaveManager.Instance.player_money += enemy_gold;
             WaveManager.Instance.UpdateHUD();
+
+            // Reproduzir o som em um GameObject temporário
+            PlayHitSoundAtDeath();
 
             // Destruir o inimigo imediatamente
             Destroy(gameObject);
@@ -93,6 +98,23 @@ public class EnemyMovement : MonoBehaviour
         if (hitSound != null && audioSource != null)
         {
             audioSource.PlayOneShot(hitSound);
+        }
+    }
+
+    // Função para reproduzir o som no último hit, mesmo que o inimigo seja destruído
+    void PlayHitSoundAtDeath()
+    {
+        if (hitSound != null)
+        {
+            // Criar um GameObject temporário para reproduzir o som
+            GameObject tempAudioSource = new GameObject("TempAudio");
+            AudioSource tempSource = tempAudioSource.AddComponent<AudioSource>();
+
+            tempSource.clip = hitSound;
+            tempSource.Play();
+
+            // Destruir o GameObject temporário após o som terminar
+            Destroy(tempAudioSource, hitSound.length);
         }
     }
 }
